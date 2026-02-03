@@ -3,7 +3,7 @@ resource "aws_lb" "backend-alb" {
   internal           = true
   load_balancer_type = "application"
   security_groups    = [local.backend_alb_sg_id]
-  subnets            = toSet(local.private_subnet_ids)
+  subnets            = toset(local.private_subnet_ids)
 
   enable_deletion_protection = true # prevents accidental deletion from UI/terraform
 
