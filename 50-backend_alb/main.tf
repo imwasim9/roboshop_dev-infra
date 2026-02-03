@@ -1,9 +1,9 @@
-resource "aws_lb" "backedn_alb" {
+resource "aws_lb" "backend-alb" {
   name               = "${local.common_name_suffix}-backend-alb"
   internal           = true
   load_balancer_type = "application"
   security_groups    = [local.backend_alb_sg_id]
-  subnets            = local.private_subnet_ids
+  subnets            = toSet(local.private_subnet_ids)
 
   enable_deletion_protection = true # prevents accidental deletion from UI/terraform
 
@@ -16,7 +16,7 @@ resource "aws_lb" "backedn_alb" {
 }
 
 resource "aws_lb_listener" "backend" {
-  load_balancer_arn = aws_lb.backedn_alb.arn
+  load_balancer_arn = aws_lb.backend-alb.arn
   port              = "80"
   protocol          = "HTTP"
 
