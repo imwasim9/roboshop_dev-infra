@@ -15,7 +15,11 @@ variable "sg_names"{
         # frontend
         "frontend",
         # bastion
-        "bastion"
+        "bastion",
+        # frontend application load balancer
+        "frontend-alb",
+        # backend application load balancer
+        "backend-alb"
 
     ]
 }
