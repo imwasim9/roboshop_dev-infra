@@ -29,5 +29,6 @@ data "aws_ssm_parameter" "database_subnet_ids"{
 
 data "aws_route53_zone" "zone_id"{
     name = var.domain_name
+    private_zone = true
 }
 
