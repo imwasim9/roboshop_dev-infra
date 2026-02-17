@@ -24,9 +24,9 @@ variable "environment"{
 #     ]
 # }
 
-variable "zone_id" {
-    default = "Z0948150OFPSYTNVYZOY"
-}
+# variable "zone_id" {
+#     default = "Z0948150OFPSYTNVYZOY"
+# }
 
 variable "domain_name" {
     default = "wasdaws.shop"

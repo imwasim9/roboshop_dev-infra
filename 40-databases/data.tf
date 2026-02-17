@@ -27,3 +27,7 @@ data "aws_ssm_parameter" "database_subnet_ids"{
     name = "/${var.project_name}/${var.environment}/database_subnet_ids"
 }
 
+data "aws_route53_zone" "zone_id"{
+    name = var.domain_name
+}
+
