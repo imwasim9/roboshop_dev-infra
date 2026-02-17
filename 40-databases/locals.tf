@@ -11,5 +11,5 @@ locals {
     Environment = var.environment
     Terraform   = "true"
   }
-  zone_id = data.aws_route53_zone.zone_id.value
+  zone_id = data.aws_route53_zone.zone.zone_id
 }
