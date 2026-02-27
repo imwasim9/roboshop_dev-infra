@@ -103,7 +103,7 @@ resource "terraform_data" "rabbitmq" {
     host     = aws_instance.rabbitmq.private_ip
   }
 
-  # terraform copies this file to mongodb server
+  # terraform copies this file to rabbitmq server
   provisioner "file" {
     source = "bootstrap.sh"
     destination = "/tmp/bootstrap.sh"
@@ -117,51 +117,51 @@ resource "terraform_data" "rabbitmq" {
   }
 }
 
-resource "aws_instance" "mysql" {
-    ami = local.ami_id
-    instance_type = "t3.micro"
-    vpc_security_group_ids = [local.mysql_sg_id]
-    subnet_id = local.database_subnet_id
-    iam_instance_profile = aws_iam_instance_profile.mysql.name
+# resource "aws_instance" "mysql" {
+#     ami = local.ami_id
+#     instance_type = "t3.micro"
+#     vpc_security_group_ids = [local.mysql_sg_id]
+#     subnet_id = local.database_subnet_id
+#     iam_instance_profile = aws_iam_instance_profile.mysql.name
     
-    tags = merge (
-        local.common_tags,
-        {
-            Name = "${local.common_name_suffix}-mysql" # roboshop-dev-mysql
-        }
-    )
-}
+#     tags = merge (
+#         local.common_tags,
+#         {
+#             Name = "${local.common_name_suffix}-mysql" # roboshop-dev-mysql
+#         }
+#     )
+# }
 
-resource "aws_iam_instance_profile" "mysql" {
-  name = "mysql"
-  role = "EC2SSMParameterRead"
-}
+# resource "aws_iam_instance_profile" "mysql" {
+#   name = "mysql"
+#   role = "EC2SSMParameterRead"
+# }
 
-resource "terraform_data" "mysql" {
-  triggers_replace = [
-    aws_instance.mysql.id
-  ]
+# resource "terraform_data" "mysql" {
+#   triggers_replace = [
+#     aws_instance.mysql.id
+#   ]
   
-  connection {
-    type     = "ssh"
-    user     = "ec2-user"
-    password = "DevOps321"
-    host     = aws_instance.mysql.private_ip
-  }
+#   connection {
+#     type     = "ssh"
+#     user     = "ec2-user"
+#     password = "DevOps321"
+#     host     = aws_instance.mysql.private_ip
+#   }
 
-  # terraform copies this file to mysql server
-  provisioner "file" {
-    source = "bootstrap.sh"
-    destination = "/tmp/bootstrap.sh"
-  }
+#   # terraform copies this file to mysql server
+#   provisioner "file" {
+#     source = "bootstrap.sh"
+#     destination = "/tmp/bootstrap.sh"
+#   }
 
-  provisioner "remote-exec" {
-    inline = [
-        "chmod +x /tmp/bootstrap.sh",
-        "sudo sh /tmp/bootstrap.sh mysql dev"
-    ]
-  }
-}
+#   provisioner "remote-exec" {
+#     inline = [
+#         "chmod +x /tmp/bootstrap.sh",
+#         "sudo sh /tmp/bootstrap.sh mysql dev"
+#     ]
+#   }
+# }
 
 resource "aws_route53_record" "mongodb" {
   zone_id = local.zone_id
@@ -181,14 +181,14 @@ resource "aws_route53_record" "redis" {
   allow_overwrite = true
 }
 
-resource "aws_route53_record" "mysql" {
-  zone_id = local.zone_id
-  name    = "mysql-${var.environment}.${var.domain_name}" # mysql-dev.wasdaws.shop
-  type    = "A"
-  ttl     = 1
-  records = [aws_instance.mysql.private_ip]
-  allow_overwrite = true
-}
+# resource "aws_route53_record" "mysql" {
+#   zone_id = local.zone_id
+#   name    = "mysql-${var.environment}.${var.domain_name}" # mysql-dev.wasdaws.shop
+#   type    = "A"
+#   ttl     = 1
+#   records = [aws_instance.mysql.private_ip]
+#   allow_overwrite = true
+# }
 
 resource "aws_route53_record" "rabbitmq" {
   zone_id = local.zone_id
