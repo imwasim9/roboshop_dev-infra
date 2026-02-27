@@ -21,3 +21,10 @@ data "aws_route53_zone" "zone"{
     private_zone = false
 }
 
+data "aws_ssm_parameter" "vpc_id" {
+  name = "/${var.project_name}/${var.env}/vpc_id"
+}
+
+data "aws_ssm_parameter" "backend_alb_listener_arn"{
+    name = "${var.project_name}/${var.env}/backend_alb_listener_arn"
+}
