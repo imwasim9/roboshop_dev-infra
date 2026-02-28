@@ -7,7 +7,7 @@ terraform {
   }
 
   backend "s3" {
-    bucket       = "remotestate-wasdaws"
+    bucket       = "remote-state-wasdaws.shop"
     key          = "roboshop-sg"
     use_lockfile = true
     region = "us-east-1"
