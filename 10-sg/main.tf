@@ -18,13 +18,3 @@ module "sg" {
   sg_description = "Created for ${var.sg_names[count.index]}"
   vpc_id         = local.vpc_id
 }
-
-resource "aws_security_group_rule" "frontend_frontend_alb" {
-  security_group_id = module.sg[9].sg_id
-  # cidr_ipv4         = aws_vpc.main.cidr_block
-  source_security_group_id = module.sg[11].sg_id
-  from_port                = 80
-  protocol                 = "tcp"
-  type                     = "ingress"
-  to_port                  = 80
-}

@@ -157,7 +157,7 @@ resource "aws_security_group_rule" "user_backend_alb" {
 
 # -------------- shipping sg rules ------------
 resource "aws_security_group_rule" "shipping_bastion"{
-  type = " ingress"
+  type = "ingress"
   security_group_id = local.bastion_sg_id
   source_security_group_id = local.shipping_sg_id
   from_port = 22
@@ -166,7 +166,7 @@ resource "aws_security_group_rule" "shipping_bastion"{
 }
 
 resource "aws_security_group_rule" "shipping_backend_alb"{
-  type = " ingress"
+  type = "ingress"
   security_group_id = local.backend_alb_sg_id
   source_security_group_id = local.shipping_sg_id
   from_port = 8080
@@ -176,7 +176,7 @@ resource "aws_security_group_rule" "shipping_backend_alb"{
 
 # --------------- payment sg rules -----------
 resource "aws_security_group_rule" "payment_bastion"{
-  type = " ingress"
+  type = "ingress"
   security_group_id = local.bastion_sg_id
   source_security_group_id = local.payment_sg_id
   from_port = 22
@@ -185,7 +185,7 @@ resource "aws_security_group_rule" "payment_bastion"{
 }
 
 resource "aws_security_group_rule" "payment_backend_alb"{
-  type = " ingress"
+  type = "ingress"
   security_group_id = local.backend_alb_sg_id
   source_security_group_id = local.payment_sg_id
   from_port = 8080

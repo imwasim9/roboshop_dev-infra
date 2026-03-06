@@ -10,7 +10,7 @@ terraform {
     bucket = "remote-state-wasdaws.shop"
     key = "roboshop-vpc"
     region = "us-east-1"
-    use_lockfile = true
+    use_lockfile = false
     encrypt = true
   }
 }
