@@ -117,9 +117,8 @@ resource "aws_security_group_rule" "catalogue_backend_alb" { # catalogue should 
 
 # ---------------- cart sg rules -------------
 resource "aws_security_group_rule" "cart_bastion" { 
-  security_group_id = local.bastion_sg_id
-  # cidr_ipv4         = aws_vpc.main.cidr_block
-  source_security_group_id = local.cart_sg_id
+  security_group_id = local.cart_sg_id
+  source_security_group_id = local.bastion_sg_id
   from_port                = 22
   protocol                 = "tcp"
   type                     = "ingress"
@@ -137,9 +136,8 @@ resource "aws_security_group_rule" "cart_backend_alb" {
 
 # ---------------- user sg rules -------------
 resource "aws_security_group_rule" "user_bastion" { 
-  security_group_id = local.bastion_sg_id
-  # cidr_ipv4         = aws_vpc.main.cidr_block
-  source_security_group_id = local.user_sg_id
+ security_group_id = local.user_sg_id
+  source_security_group_id = local.bastion_sg_id
   from_port                = 22
   protocol                 = "tcp"
   type                     = "ingress"
@@ -158,8 +156,8 @@ resource "aws_security_group_rule" "user_backend_alb" {
 # -------------- shipping sg rules ------------
 resource "aws_security_group_rule" "shipping_bastion"{
   type = "ingress"
-  security_group_id = local.bastion_sg_id
-  source_security_group_id = local.shipping_sg_id
+  security_group_id = local.shipping_sg_id
+  source_security_group_id = local.bastion_sg_id
   from_port = 22
   to_port = 22
   protocol = "tcp"
@@ -177,8 +175,8 @@ resource "aws_security_group_rule" "shipping_backend_alb"{
 # --------------- payment sg rules -----------
 resource "aws_security_group_rule" "payment_bastion"{
   type = "ingress"
-  security_group_id = local.bastion_sg_id
-  source_security_group_id = local.payment_sg_id
+  security_group_id = local.payment_sg_id
+  source_security_group_id = local.bastion_sg_id
   from_port = 22
   to_port = 22
   protocol = "tcp"
