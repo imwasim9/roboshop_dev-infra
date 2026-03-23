@@ -191,6 +191,15 @@ resource "aws_security_group_rule" "payment_backend_alb"{
   protocol = "tcp"
 }
 
+resource "aws_security_group_rule" "payment_shipping" {
+  type              = "ingress"
+  security_group_id = local.payment_sg_id
+  source_security_group_id = local.shipping_sg_id
+  from_port         = 8080
+  protocol          = "tcp"
+  to_port           = 8080
+}
+
 # -------------------- backend_alb_sg_rules ---------------------
 
 resource "aws_security_group_rule" "backend_alb_bastion" {
