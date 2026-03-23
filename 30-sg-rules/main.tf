@@ -127,8 +127,8 @@ resource "aws_security_group_rule" "cart_bastion" {
 
 resource "aws_security_group_rule" "cart_backend_alb" {
   type              = "ingress"
-  security_group_id = local.backend_alb_sg_id
-  source_security_group_id = local.cart_sg_id
+  security_group_id = local.cart_sg_id
+  source_security_group_id =  local.backend_alb_sg_id
   from_port         = 8080
   protocol          = "tcp"
   to_port           = 8080
