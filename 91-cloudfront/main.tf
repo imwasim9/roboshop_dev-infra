@@ -51,7 +51,7 @@ resource "aws_cloudfront_distribution" "roboshop" {
 resource "aws_route53_record" "cdn" {
   zone_id = local.zone_id
   name = "${var.environment}.${var.domain_name}"
-  type = A
+  type = "A"
   allow_overwrite = true
 
   alias{
